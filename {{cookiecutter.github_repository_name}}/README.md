@@ -3,7 +3,7 @@
 
 {{cookiecutter.description}}. Check out the project's [documentation](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.github_repository_name}}/).
 
-# Prerequisites 
+# Prerequisites
 - [virtualenv](https://virtualenv.pypa.io/en/latest/)
 
 # Initialize the project
