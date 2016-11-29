@@ -2,41 +2,77 @@ from settings import *
 
 DEBUG = False
 
-LOG_KEY = "{{cookiecutter.logentries_key}}"
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
     'formatters': {
         'verbose': {
-            'format': "[%(asctime)s] %(levelname)s [%(pathname)s %(lineno)d] %(message)s",
-            'datefmt': "%d/%b/%Y %H:%M:%S"
+            'format': '%(levelname)s %(asctime)s %(name)s %(message)s'
+        }
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        },
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue'
         },
     },
     'handlers': {
         'logentries': {
             'level': 'INFO',
-            'token': os.environ.get("LOGENTRIES_KEY", LOG_KEY),
+            'token': os.environ.get("LOGENTRIES_KEY", ''),
             'class': 'logentries.LogentriesHandler',
             'formatter': 'verbose'
         },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
         'file': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': os.path.join(BASE_DIR, 'logs/{{ cookiecutter.app_name }}_logs.log'),
+            'level': os.environ.get('LOG_LEVEL', 'INFO'),
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'when': 'midnight',
+            'backupCount': 10,
+            'filename': os.environ.get('LOG_FILE', '{{cookiecutter.project_name}}.log'),
+            'formatter': 'verbose',
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'filters': ['require_debug_true'],
             'formatter': 'verbose'
+        },
+        'sql': {
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
+            'backupCount': 10,
+            'filename': 'sql.log',
+            'filters': ['require_debug_true'],
+            'formatter': 'verbose',
         },
     },
     'loggers': {
         'django': {
-            'handlers': ['file'],
-            'level': 'INFO',
+            'handlers': ['console', 'file'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.request': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
             'propagate': True,
         },
-        'trackme': {
-            'handlers': ['logentries', 'file'],
-            'level': 'INFO',
+        '{{cookiecutter.project_name}}': {
+            'handlers': ['console', 'file', 'logentries'],
+            'level': 'DEBUG',
             'propagate': True,
+        },
+        'django.db.backends': {
+            'level': 'DEBUG',
+            'handlers': ['sql'],
+            'propagate': False,
         }
-    },
+    }
 }
