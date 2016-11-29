@@ -28,7 +28,7 @@ git remote add origin git@github.com:{{cookiecutter.github_username}}/{{cookiecu
 Migrate, create a superuser, and run the server:
 ```bash
 python manage.py migrate
-python manage.py makemigrations {{cookiecuter.project_name}}
+python manage.py makemigrations {{cookiecutter.project_name}}
 python manage.py createsuperuser
 python manage.py runserver
 ```
