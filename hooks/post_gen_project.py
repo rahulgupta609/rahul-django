@@ -37,10 +37,18 @@ def remove_elasticbeanstalk():
         ))
 
 
-# Removes heroku files
-if '{{ cookiecutter.use_heroku }}'.lower() != 'y':
-    remove_heroku_files()
+def perform_post_gen_action():
+    """
+    Performs actions needed after a Django project has been created.
+    """
+    # Removes heroku files
+    if '{{ cookiecutter.use_heroku }}'.lower() != 'y':
+        remove_heroku_files()
 
-# Remove Elastic Beanstalk files
-if '{{ cookiecutter.use_elasticbeanstalk }}'.lower() != 'y':
-    remove_elasticbeanstalk()
+    # Removes Elastic Beanstalk files
+    if '{{ cookiecutter.use_elasticbeanstalk }}'.lower() != 'y':
+        remove_elasticbeanstalk()
+
+
+if __name__ == "__main__":
+    perform_post_gen_action()
