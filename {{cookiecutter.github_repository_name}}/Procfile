@@ -1,1 +1,1 @@
-web: gunicorn vendorportal.wsgi
+web: gunicorn {{cookiecutter.project_name}}.wsgi
