@@ -1,0 +1,12 @@
+{
+    "github_repository_name": "my-repository",
+    "project_name": "my-project",
+    "email": "sidharthchh@gmail.com",
+    "description": "This is the coolest project.",
+    "logentries_key": "Enter the key obtained from logentries",
+    "github_username": "The owner of the repository. Either your github username or organization name.",
+    "db_type": ["sqlite3", "postgres", "mysql"],
+    "db_name": "Name of the database (ignore if you have selected sqlite3 as db_type)",
+    "db_username": "Username for the database. (ignore if you have selected sqlite3 as db_type)",
+    "db_password": "passsword for the database. (ignore if you have selected sqlite3 as db_type)"
+}

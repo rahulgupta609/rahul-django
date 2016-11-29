@@ -1,0 +1,15 @@
+certifi==2016.9.26
+coreapi==2.0.9
+Django==1.9.11
+django-filter==1.0.0
+django-rest-swagger==2.1.0
+djangorestframework==3.5.3
+itypes==1.1.0
+gunicorn==19.6.0
+Logentries==0.17
+Markdown==2.6.7
+openapi-codec==1.1.7
+requests==2.12.1
+simplejson==3.10.0
+uritemplate==3.0.0
+whitenoise==3.2.2
