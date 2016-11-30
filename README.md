@@ -1,3 +1,6 @@
+Django Project Template
+==============================================
+
 ## Quick Start
 
 Install [cookiecutter](https://github.com/audreyr/cookiecutter):
@@ -7,10 +10,5 @@ pip install cookiecutter
 
 Setting up the Codebase:
 ```bash
-cookiecutter https://github.com/sidharthc/cookiecutter-drf-hashedin
+cookiecutter https://github.com/hashedin/django-project-template
 ```
-
-Enter the  details in the questions asked.
-You can select any of the three database type which is sqlite3, postgresql or mySQL. In case of postgresql and mysql, they are the prerequisites.
-
-Get started with coding now! :)
