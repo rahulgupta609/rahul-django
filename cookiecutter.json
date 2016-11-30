@@ -7,5 +7,6 @@
     "use_heroku": "n",
     "use_elasticbeanstalk": "n",
     "use_travis_ci": "n",
-    "use_circle_ci": "n"
+    "use_circle_ci": "n",
+    "use_newrelic": "n"
 }

@@ -29,22 +29,31 @@ def remove_elasticbeanstalk():
     if os.path.exists(docs_dir_location):
         shutil.rmtree(docs_dir_location)
 
-    filenames = ["ebsetenv.py"]
-    for filename in filenames:
-        remove_file(os.path.join(
-            PROJECT_DIRECTORY, filename
-        ))
+    filename = "ebsetenv.py"
+    remove_file(os.path.join(
+        PROJECT_DIRECTORY, filename
+    ))
 
 
 def remove_travis_ci():
     """
     Removes travis-ci yml file
     """
-    filenames = [".travis.yml"]
-    for filename in filenames:
-        remove_file(os.path.join(
-            PROJECT_DIRECTORY, filename
-        ))
+    filename = ".travis.yml"
+    remove_file(os.path.join(
+        PROJECT_DIRECTORY, filename
+    ))
+
+
+def remove_newrelic():
+    """
+    Removes Newrelic config file
+    """
+    filename = "newrelic.ini"
+    remove_file(os.path.join(
+        PROJECT_DIRECTORY, filename
+    ))
+
 
 def remove_circle_ci():
     """
@@ -76,6 +85,10 @@ def perform_post_gen_action():
     # Removes travis-ci files
     if '{{ cookiecutter.use_circle_ci }}'.lower() != 'y':
         remove_circle_ci()
+
+    # Removes newrelic files
+    if '{{ cookiecutter.use_newrelic }}'.lower() != 'y':
+        remove_newrelic()
 
 
 if __name__ == "__main__":
