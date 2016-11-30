@@ -2,7 +2,6 @@
 # Introduction
 
 Write about your project in this area.
-Check out the project's [documentation](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.github_repository_name}}/).
 
 # Developer Guide
 
@@ -18,8 +17,8 @@ Check out the project's [documentation](https://github.com/{{cookiecutter.github
 Create and activate a virtualenv:
 
 ```bash
-virtualenv env
-source env/bin/activate
+virtualenv venv
+source venv/bin/activate
 ```
 Install dependencies:
 
@@ -47,6 +46,7 @@ python manage.py makemigrations {{cookiecutter.project_name}}
 python manage.py createsuperuser
 python manage.py runserver
 ```
+
 ## Setting up Environment Variables
 Edit the environment variables in **'.env.template'** file and then **RENAME** the file to **'.env'**
 
@@ -90,7 +90,52 @@ for more info, https://circleci.com/docs/language-python/
 
 ## Viewing Logs
 
+{% if cookiecutter.use_newrelic == 'y' %}
+## Monitoring
+Set up your newrelic license key in **NEW_RELIC_LICENSE_KEY** in `.env` file and start seeing the metrics in new relic.
+
+{% endif %}
+
 ## Deploying
+{% if cookiecutter.use_heroku == 'y' or cookiecutter.use_heroku == 'Y' %}
+### Heroku
+Deployment to heroku requires a Procfile which is present in the main directory. This can always be changed on need basis.
+
+Following steps need to be undertaken to deploy to heroku
+  1. Create an account on heroku if not already.
+  2. Create a heroku app - you could either use the heroku dashboard to do this or the heroku cli.
+  3. Install Heroku cli - [documentation](https://devcenter.heroku.com/articles/heroku-cli)
+
+#### create a heroku app using cli
+  1. Use `heroku login` and enter your credentials.
+  2. Run `heroku create {app-name}` to create your app on heroku. This would give you the app deployment url and the apps git url. [documentation](https://devcenter.heroku.com/articles/creating-apps).
+
+#### Deployment to heroku
+  1. Add the heroku git url using `git remote add heroku {heroku-git-url}` (required only for the first time).
+  2. To deploy a build, run `git push heroku HEAD:master` . This should push all changes to heroku which can be viewed at the app url.
+{% endif %}
+
+{% if cookiecutter.use_elasticbeanstalk == 'y' or cookiecutter.use_elasticbeanstalk == 'Y' %}
+### Elastic BeanStalk (EBS)
+EBS deployment requires a config file in .ebextensions in the main folder. A `{{cookiecutter.project_name}}.config` is already present which handles basic functions on deployment like migration and serving static files. These configurations can always be changed on need basis.
+
+Follow EBS [documentation](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-django.html) on deployment for better understanding.
+
+Following steps need to be undertaken to deploy to AWS EBS(Elastic beanstalk):
+  1. Create an account on AWS if not already.
+  2. Go to the Elastic Beanstalk management console to create a new application. Add the configurations as required by the application.
+
+#### Deployment to EBS via terminal
+  1. Run `source venv/bin/activate` to activate virtual environment.
+  2. Run `pip install -r requirements.txt`.
+  3. Test the app locally using `python manage.py runserver` and hitting healthCheck url.
+  4. Install the awsebcli package using `pip install awsebcli`.
+  5. To initialize your application and configuring your environment run `eb init`. (required only for the first time)
+  6. Run `eb deploy` to deploy to EBS.
+
+You can configure your environment variables in the configuration settings of the Elastic Beanstalk console.
+
+{% endif %}
 
 ## Revert Build
 
