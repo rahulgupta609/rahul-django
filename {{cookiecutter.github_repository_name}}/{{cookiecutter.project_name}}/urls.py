@@ -19,6 +19,7 @@ from rest_framework.routers import DefaultRouter
 from rest_framework_swagger.views import get_swagger_view
 
 from authentication.views import UserViewSet
+from authentication import urls as authentication_urls
 
 router = DefaultRouter()
 router.register(r'users', UserViewSet)
@@ -27,7 +28,7 @@ schema_view = get_swagger_view(title='Pastebin API')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^api/v1/', include('authentication.urls')),
+    url(r'^api/v1/', include(authentication_urls)),
     url(r'^api/v1/', include(router.urls)),
     url(r'^$', schema_view)
 ]
