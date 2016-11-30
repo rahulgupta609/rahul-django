@@ -46,6 +46,16 @@ def remove_travis_ci():
             PROJECT_DIRECTORY, filename
         ))
 
+def remove_circle_ci():
+    """
+    Removes circle-ci yml file
+    """
+    filenames = ["circle.yml"]
+    for filename in filenames:
+        remove_file(os.path.join(
+            PROJECT_DIRECTORY, filename
+        ))
+
 
 def perform_post_gen_action():
     """
@@ -62,6 +72,10 @@ def perform_post_gen_action():
     # Removes travis-ci files
     if '{{ cookiecutter.use_travis_ci }}'.lower() != 'y':
         remove_travis_ci()
+
+    # Removes travis-ci files
+    if '{{ cookiecutter.use_circle_ci }}'.lower() != 'y':
+        remove_circle_ci()
 
 
 if __name__ == "__main__":
