@@ -36,6 +36,17 @@ def remove_elasticbeanstalk():
         ))
 
 
+def remove_travis_ci():
+    """
+    Removes travis-ci yml file
+    """
+    filenames = [".travis.yml"]
+    for filename in filenames:
+        remove_file(os.path.join(
+            PROJECT_DIRECTORY, filename
+        ))
+
+
 def perform_post_gen_action():
     """
     Performs actions needed after a Django project has been created.
@@ -47,6 +58,10 @@ def perform_post_gen_action():
     # Removes Elastic Beanstalk files
     if '{{ cookiecutter.use_elasticbeanstalk }}'.lower() != 'y':
         remove_elasticbeanstalk()
+
+    # Removes travis-ci files
+    if '{{ cookiecutter.use_travis_ci }}'.lower() != 'y':
+        remove_travis_ci()
 
 
 if __name__ == "__main__":

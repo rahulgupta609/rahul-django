@@ -1,7 +1,7 @@
 #{{cookiecutter.github_repository_name}}
 
 
-{{cookiecutter.description}}. Check out the project's [documentation](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.github_repository_name}}/).
+Check out the project's [documentation](https://github.com/{{cookiecutter.github_username}}/{{cookiecutter.github_repository_name}}/).
 
 # Prerequisites
 - [virtualenv](https://virtualenv.pypa.io/en/latest/)
