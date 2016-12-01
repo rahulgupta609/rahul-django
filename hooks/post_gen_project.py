@@ -49,7 +49,7 @@ def remove_newrelic():
     """
     Removes Newrelic config file
     """
-    filename = "newrelic.ini"
+    filename = "{{cookiecutter.project_name}}/newrelic.ini"
     remove_file(os.path.join(
         PROJECT_DIRECTORY, filename
     ))
@@ -59,11 +59,20 @@ def remove_circle_ci():
     """
     Removes circle-ci yml file
     """
-    filenames = ["circle.yml"]
-    for filename in filenames:
-        remove_file(os.path.join(
-            PROJECT_DIRECTORY, filename
-        ))
+    filename = "circle.yml"
+    remove_file(os.path.join(
+        PROJECT_DIRECTORY, filename
+    ))
+
+
+def remove_celery():
+    """
+    Removes celery file
+    """
+    filename = "{{cookiecutter.project_name}}/celery.py"
+    remove_file(os.path.join(
+        PROJECT_DIRECTORY, filename
+    ))
 
 
 def perform_post_gen_action():
@@ -89,6 +98,10 @@ def perform_post_gen_action():
     # Removes newrelic files
     if '{{ cookiecutter.use_newrelic }}'.lower() != 'y':
         remove_newrelic()
+
+    # Removes celery file if not required
+    if '{{ cookiecutter.use_celery }}'.lower() != 'y':
+        remove_celery()
 
 
 if __name__ == "__main__":

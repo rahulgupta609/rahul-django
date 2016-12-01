@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_swagger',
     '{{cookiecutter.project_name}}',
+    {% if cookiecutter.use_celery %}'djcelery',{% endif %}
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -244,3 +245,13 @@ WHITENOISE_ROOT = os.path.join(PROJECT_ROOT, 'public')
 STATICFILES_DIRS = [
     os.path.join(PROJECT_ROOT, 'static'),
 ]
+
+{% if cookiecutter.use_celery == 'y' %}
+########## CELERY
+BROKER_URL = os.environ.get('CELERY_BROKER_URL', 'redis://127.0.0.1:6379/0')
+BROKER_TRANSPORT = 'redis'
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
+# In development, all tasks will be executed locally by blocking until the task returns
+CELERY_ALWAYS_EAGER = True
+########## END CELERY
+{% endif %}

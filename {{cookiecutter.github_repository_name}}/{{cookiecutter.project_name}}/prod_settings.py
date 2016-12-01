@@ -76,3 +76,10 @@ LOGGING = {
         }
     }
 }
+
+{% if cookiecutter.use_celery == 'y' %}
+########## CELERY
+# In production, all tasks will be executed in the worker
+CELERY_ALWAYS_EAGER = False
+########## END CELERY
+{% endif %}
