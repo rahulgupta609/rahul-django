@@ -84,21 +84,8 @@ for more info, https://circleci.com/docs/language-python/
 
 # Deployment Guide
 
-## Setting up Heroku
-
-## Setting up Elastic Beanstalk
-
-## Viewing Logs
-
-{% if cookiecutter.use_newrelic == 'y' %}
-## Monitoring
-Set up your newrelic license key in **NEW_RELIC_LICENSE_KEY** in `.env` file and start seeing the metrics in new relic.
-
-{% endif %}
-
-## Deploying
 {% if cookiecutter.use_heroku == 'y' or cookiecutter.use_heroku == 'Y' %}
-### Heroku
+## Setting up Heroku
 Deployment to heroku requires a Procfile which is present in the main directory. This can always be changed on need basis.
 
 Following steps need to be undertaken to deploy to heroku
@@ -113,6 +100,36 @@ Following steps need to be undertaken to deploy to heroku
 #### Deployment to heroku
   1. Add the heroku git url using `git remote add heroku {heroku-git-url}` (required only for the first time).
   2. To deploy a build, run `git push heroku HEAD:master` . This should push all changes to heroku which can be viewed at the app url.
+{% endif %}
+
+{% if cookiecutter.use_elasticbeanstalk == 'y' or cookiecutter.use_elasticbeanstalk == 'Y' %}
+## Setting up Elastic Beanstalk
+EBS deployment requires a config file in .ebextensions in the main folder. A `{{cookiecutter.project_name}}.config` is already present which handles basic functions on deployment like migration and serving static files. These configurations can always be changed on need basis.
+
+Follow EBS [documentation](http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/create-deploy-python-django.html) on deployment for better understanding.
+
+Following steps need to be undertaken to deploy to AWS EBS(Elastic beanstalk):
+  1. Create an account on AWS if not already.
+  2. Go to the Elastic Beanstalk management console to create a new application. Add the configurations as required by the application.
+
+#### Deployment to EBS via terminal
+  1. Run `source venv/bin/activate` to activate virtual environment.
+  2. Run `pip install -r requirements.txt`.
+  3. Test the app locally using `python manage.py runserver` and hitting healthCheck url.
+  4. Install the awsebcli package using `pip install awsebcli`.
+  5. To initialize your application and configuring your environment run `eb init`. (required only for the first time)
+  6. Run `eb deploy` to deploy to EBS.
+
+You can configure your environment variables in the configuration settings of the Elastic Beanstalk console.
+
+{% endif %}
+
+## Viewing Logs
+
+{% if cookiecutter.use_newrelic == 'y' %}
+## Monitoring
+Set up your newrelic license key in **NEW_RELIC_LICENSE_KEY** in `.env` file and start seeing the metrics in new relic.
+
 {% endif %}
 
 {% if cookiecutter.use_elasticbeanstalk == 'y' or cookiecutter.use_elasticbeanstalk == 'Y' %}
