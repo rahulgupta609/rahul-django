@@ -18,7 +18,7 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{{cookiecutter.project_name}}.s
 
 {% if cookiecutter.use_newrelic == 'y' %}
 # Initializes the new relic agent
-NEWRELIC_CONFIG_FILE = os.path.join(PROJECT_DIR, "newrelic.ini")
+NEWRELIC_CONFIG_FILE = os.path.join(PROJECT_DIR, "{{cookiecutter.project}}/newrelic.ini")
 newrelic.agent.initialize(NEWRELIC_CONFIG_FILE)
 {% endif %}
 
