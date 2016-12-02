@@ -14,7 +14,7 @@ from django.core.wsgi import get_wsgi_application
 
 PROJECT_DIR = os.path.split(os.path.split(os.path.abspath(__file__))[0])[0]
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{{cookiecutter.project_name}}.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{{cookiecutter.project_name}}.settings.production")
 
 {% if cookiecutter.use_newrelic == 'y' %}
 # Initializes the new relic agent

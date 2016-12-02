@@ -17,6 +17,7 @@ import views
 
 from django.conf.urls import url, include
 from django.contrib import admin
+{% if cookiecutter.use_django_rest_framework_for_apis == 'y' %}
 from rest_framework.routers import DefaultRouter
 from rest_framework_swagger.views import get_swagger_view
 
@@ -27,11 +28,15 @@ router = DefaultRouter()
 router.register(r'users', UserViewSet)
 
 schema_view = get_swagger_view(title='Pastebin API')
+{% endif %}
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+{% if cookiecutter.use_django_rest_framework_for_apis == 'y' %}
     url(r'^api/v1/', include(authentication_urls)),
-    url(r'^api/v1/', include(router.urls)),
     url(r'^$', schema_view),
+    url(r'^api/v1/', include(router.urls)),
+{% endif %}
     url(r'^healthCheck/', views.health_check),
 ]
+

@@ -2,6 +2,7 @@
     "github_repository_name": "my-repository",
     "project_name": "my-project",
     "db_type": ["sqlite3", "postgres", "mysql"],
+    "use_django_rest_framework_for_apis": "y",
     "use_celery": "n",
     "use_redis": "n",
     "use_heroku": "n",

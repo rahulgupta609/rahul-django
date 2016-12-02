@@ -23,7 +23,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'i%jhp&fs!z5kl1hy!liqgkx@7k0in1-9-@13rl#tpg!gl9u9!b'
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'CHANGEME!!!')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -43,10 +43,12 @@ INSTALLED_APPS = [
     # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    {% if cookiecutter.use_django_rest_framework_for_apis == 'y' %}
     'rest_framework',
     'rest_framework_swagger',
+    {% endif %}
     '{{cookiecutter.project_name}}',
-    {% if cookiecutter.use_celery %}'djcelery',{% endif %}
+    {% if cookiecutter.use_celery == 'y' %}'djcelery',{% endif %}
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -228,8 +230,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
@@ -252,6 +253,5 @@ BROKER_URL = os.environ.get('CELERY_BROKER_URL', 'redis://127.0.0.1:6379/0')
 BROKER_TRANSPORT = 'redis'
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 # In development, all tasks will be executed locally by blocking until the task returns
-CELERY_ALWAYS_EAGER = True
 ########## END CELERY
 {% endif %}
