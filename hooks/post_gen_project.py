@@ -53,7 +53,7 @@ def make_secret_key(project_directory):
     # Determine the local_setting_file_location
     local_setting = os.path.join(
         project_directory,
-        '{{cookiecutter.project_name}}/settings.py'
+        '{{cookiecutter.project_name}}/settings/common.py'
     )
 
     # local.py settings file
@@ -151,7 +151,7 @@ def perform_post_gen_action():
     Performs actions needed after a Django project has been created.
     """
     # 1. Generates and saves random secret key
-    # make_secret_key(PROJECT_DIRECTORY)
+    make_secret_key(PROJECT_DIRECTORY)
 
     # Removes heroku files
     if '{{ cookiecutter.use_heroku }}'.lower() != 'y':
