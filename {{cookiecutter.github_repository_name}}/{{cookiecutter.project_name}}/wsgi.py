@@ -8,8 +8,9 @@ https://docs.djangoproject.com/en/1.9/howto/deployment/wsgi/
 """
 
 import os
-import sys
+{% if cookiecutter.use_newrelic == 'y' %}
 import newrelic.agent
+{% endif %}
 from django.core.wsgi import get_wsgi_application
 
 PROJECT_DIR = os.path.split(os.path.split(os.path.abspath(__file__))[0])[0]
