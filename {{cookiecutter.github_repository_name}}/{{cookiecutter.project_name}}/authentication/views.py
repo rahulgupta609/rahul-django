@@ -1,3 +1,4 @@
+from __future__ import unicode_literals, absolute_import
 from rest_framework import viewsets, mixins
 from rest_framework.permissions import AllowAny
 

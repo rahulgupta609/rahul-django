@@ -1,15 +1,23 @@
 from common import *
 
 DEBUG = False
+ALLOWED_HOSTS = []
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
-LOGGING['handlers']['logentries'] = {
-            'level': 'INFO',
-            'token': os.environ.get("LOGENTRIES_KEY", ''),
-            'class': 'logentries.LogentriesHandler',
-            'formatter': 'verbose'
-        }
+SECURE_HSTS_SECONDS=3600
+SECURE_HSTS_INCLUDE_SUBDOMAINS=False
 
-LOGGING['loggers']['{{cookiecutter.project_name}}']['handlers'] = ['console', 'file', 'logentries']
+# Configure logentries only if LOGENTRIES_KEY is defined in settings
+if os.environ.get("LOGENTRIES_KEY", ''):
+    LOGGING['handlers']['logentries'] = {
+                'level': 'INFO',
+                'token': os.environ.get("LOGENTRIES_KEY", ''),
+                'class': 'logentries.LogentriesHandler',
+                'formatter': 'verbose'
+            }
+
+    LOGGING['loggers']['{{cookiecutter.project_name}}']['handlers'] = ['console', 'file', 'logentries']
 
 {% if cookiecutter.use_celery == 'y' %}
 ########## CELERY
@@ -17,6 +25,3 @@ LOGGING['loggers']['{{cookiecutter.project_name}}']['handlers'] = ['console', 'f
 CELERY_ALWAYS_EAGER = False
 ########## END CELERY
 {% endif %}
-
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

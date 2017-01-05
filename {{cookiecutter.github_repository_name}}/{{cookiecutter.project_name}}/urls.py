@@ -13,6 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
+from __future__ import unicode_literals, absolute_import
 import views
 
 from django.conf.urls import url, include
@@ -37,6 +38,6 @@ urlpatterns = [
     url(r'^$', schema_view),
     url(r'^api/v1/', include(router.urls)),
 {% endif %}
-    url(r'^healthCheck/', views.health_check),
+    url(r'^healthcheck/', views.health_check),
 ]
 

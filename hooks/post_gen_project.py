@@ -1,3 +1,4 @@
+from __future__ import unicode_literals, absolute_import
 # ACTIONS TO BE DONE AFTER THE PROJECT IS COMPLETED.
 import os
 import shutil
@@ -69,7 +70,7 @@ def make_secret_key(project_directory):
 
 def remove_authentication_dir():
     """
-    Removes directories related to PyCharm
+    Removes directories related to authentication
     if it isn't going to be used
     """
     authentication_location = os.path.join(PROJECT_DIRECTORY, '{{cookiecutter.project_name}}/authentication')
