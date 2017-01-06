@@ -61,3 +61,13 @@ git commit -m "Initial Commit using django-project-template"
 At this point, your Django project is ready.
 
 
+## Enabling/Disabling Features or Upgrading Django Project Template
+Let's say you started your project, and now there are additional updates to django-project-template. Or, you had disabled celery, but now want to enable support. How do you incorporate those changes to your existing project, where you have already written some code?
+
+ 1. First, make sure commit all your changes to git. For safety, push it to a remote git server
+ 1. Then, re-run cookiecutter command, perhaps with different settings
+ 1. Cookiecutter will simply overwrite all the files
+ 1. Use `git status` and `git diff` and carefully review the changes
+ 1. If there are conflicts, manually merge them
+ 1. If satisfied, commit the changes. If not, revert and re-try with different cookiecutter settings
+ 
