@@ -32,9 +32,15 @@ DEBUG = True
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '.herokuapp.com', '*.elasticbeanstalk.com']
+# TODO: Fix this
+# ElasticBeanstalk healthcheck sends requests with host header = internal ip
+# This breaks django's default host checking, as we cannot possibly add
+# all IP addresses to ALLOWED_HOSTS
+# Need to write a middleware to allow internal ip addresses 
+# and a white list of host names
 
-# Application definition
+ALLOWED_HOSTS = ['*']
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -112,7 +118,7 @@ DATABASES = {
     }
 }
 
-# Update database configuration with $DATABASE_URL.
+# Use the database configuration defined in environment variable DATABASE_URL
 db_from_env = dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(db_from_env)
 
@@ -152,6 +158,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# In elastic beanstalk, LOG_DIR is set to /opt/python/log
+# See .ebextensions/{{cookiecutter.project_name}}.config
+# All other environments, LOG_DIR is empty, which means
+# log files are created in current working directory
+LOG_DIR = os.environ.get('LOG_DIR', '')
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -179,7 +190,7 @@ LOGGING = {
             'class': 'logging.handlers.TimedRotatingFileHandler',
             'when': 'midnight',
             'backupCount': 10,
-            'filename': os.environ.get('LOG_FILE', '{{cookiecutter.project_name}}.log'),
+            'filename': os.path.join(LOG_DIR, '{{cookiecutter.project_name}}.log'),
             'formatter': 'verbose',
         },
         'console': {
@@ -192,7 +203,7 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.handlers.RotatingFileHandler',
             'backupCount': 10,
-            'filename': 'sql.log',
+            'filename': os.path.join(LOG_DIR, 'queries.log'),
             'filters': ['require_debug_true'],
             'formatter': 'verbose',
         },
