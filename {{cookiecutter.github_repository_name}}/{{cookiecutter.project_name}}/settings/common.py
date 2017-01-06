@@ -16,6 +16,30 @@ import os
 import dj_database_url
 import dj_email_url
 
+def is_ec2_linux():
+    """Detect if we are running on an EC2 Linux Instance
+        See http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/identify_ec2_instances.html
+    """
+    if os.path.isfile("/sys/hypervisor/uuid"):
+        with open("/sys/hypervisor/uuid") as f:
+            uuid = f.read()
+            return uuid.startswith("ec2")
+    return False
+
+def get_linux_ec2_private_ip():
+    """Get the private IP Address of the machine if running on an EC2 linux server"""
+    import urllib2
+    if not is_ec2_linux():
+        return None
+    try:
+        response = urllib2.urlopen('http://169.254.169.254/latest/meta-data/local-ipv4')
+        return response.read()
+    except:
+        return None
+    finally:
+        if response:
+            response.close()
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -32,15 +56,13 @@ DEBUG = True
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# TODO: Fix this
 # ElasticBeanstalk healthcheck sends requests with host header = internal ip
-# This breaks django's default host checking, as we cannot possibly add
-# all IP addresses to ALLOWED_HOSTS
-# Need to write a middleware to allow internal ip addresses 
-# and a white list of host names
-
-ALLOWED_HOSTS = ['*']
-
+# So we detect if we are in elastic beanstalk, 
+# and add the instances private ip address
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+private_ip = get_linux_ec2_private_ip()
+if private_ip:
+    ALLOWED_HOSTS.append(private_ip)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
