@@ -1,4 +1,4 @@
-from __future__ import unicode_literals
+from __future__ import unicode_literals, absolute_import
 """
 Django settings for {{ cookiecutter.project_name }} project.
 
@@ -79,8 +79,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_swagger',
     {% endif %}
-    '{{cookiecutter.project_name}}',
-    {% if cookiecutter.use_celery == 'y' %}'djcelery',{% endif %}
+    '{{cookiecutter.project_name}}.authentication',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -286,8 +285,8 @@ STATICFILES_DIRS = [
 
 {% if cookiecutter.use_celery == 'y' %}
 ########## CELERY
-BROKER_URL = os.environ.get('CELERY_BROKER_URL', 'redis://127.0.0.1:6379/0')
-BROKER_TRANSPORT = 'redis'
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_URL', 'redis://127.0.0.1:6379/0')
+CELERY_BROKER_TRANSPORT = 'redis'
 CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 # In development, all tasks will be executed locally by blocking until the task returns
 ########## END CELERY
