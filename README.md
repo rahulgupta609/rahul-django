@@ -1,4 +1,4 @@
-This is HashedIn's standard template for Django Projects.
+Production ready starter template for Django Projects running on AWS Elastic Beanstalk
 
 ## Features
 * Django 1.9.x
@@ -61,7 +61,7 @@ git commit -m "Initial Commit using django-project-template"
 At this point, your Django project is ready.
 
 
-## Enabling/Disabling Features or Upgrading Django Project Template
+## Re-running Cookie Cutter
 Let's say you started your project, and now there are additional updates to django-project-template. Or, you had disabled celery, but now want to enable support. How do you incorporate those changes to your existing project, where you have already written some code?
 
  1. First, make sure commit all your changes to git. For safety, push it to a remote git server
