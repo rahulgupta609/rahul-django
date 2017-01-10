@@ -4,41 +4,43 @@
 #
 #    pip-compile --output-file requirements.txt requirements.in
 #
+{% if cookiecutter.use_celery == "y" %}
+amqp==2.1.4               # via kombu
+billiard==3.5.0.2         # via celery
+celery==4.0.2
+{% endif %}
 certifi==2016.9.26        # via logentries
 click==6.6                # via pip-tools
-{% if cookiecutter.use_celery == "y" %}
-amqp==1.4.9               # via kombu
-anyjson==0.3.3            # via kombu
-billiard==3.3.0.23        # via celery
-celery==3.1.24
-django-celery==3.1.17
-kombu==3.0.37             # via celery
-pytz==2016.7              # via celery
-{% endif %}
+coreapi==2.1.0            # via django-rest-swagger, openapi-codec
 dj-database-url==0.4.1
 dj-email-url==0.0.10
-{% if cookiecutter.use_django_rest_framework_for_apis == "y" %}
 django-filter==1.0.0
-django-rest-swagger==2.1.0
-djangorestframework==3.5.3
-openapi-codec==1.2.0      # via django-rest-swagger
-coreapi==2.1.0            # via django-rest-swagger, openapi-codec
-itypes==1.1.0             # via coreapi
-requests==2.12.1          # via coreapi
-simplejson==3.10.0        # via django-rest-swagger
-uritemplate==3.0.0        # via coreapi
+{% if cookiecutter.use_redis == 'y' %}
+django-redis==4.7.0
 {% endif %}
-Django==1.9.11
+django-rest-swagger==2.1.0
+Django==1.10.5
+{% if cookiecutter.use_django_rest_framework_for_apis == "y" %}
+djangorestframework==3.5.3
+{% endif %}
 first==2.0.1              # via pip-tools
 gunicorn==19.6.0
+itypes==1.1.0             # via coreapi
+{% if cookiecutter.use_celery == "y" %}
+kombu==4.0.2              # via celery
+{% endif %}
 Logentries==0.17
+MySQL-python==1.2.5
+newrelic==2.78.0.57
+openapi-codec==1.2.0      # via django-rest-swagger
+pip-tools==1.7.0
+pytz==2016.7              # via celery
 {% if cookiecutter.use_redis == 'y' %}
 redis==2.10.5
-django-redis==4.6.0
 {% endif %}
-{% if cookiecutter.db_type == 'mysql' %}MySQL-python==1.2.5{% endif %}
-{% if cookiecutter.use_newrelic == 'y' %}newrelic==2.74.0.54{% endif %}
-pip-tools==1.7.0
-{% if cookiecutter.db_type == 'postgres' %}psycopg2==2.6.2{% endif %}
+requests==2.12.1          # via coreapi
+simplejson==3.10.0        # via django-rest-swagger
 six==1.10.0               # via pip-tools
+uritemplate==3.0.0        # via coreapi
+vine==1.1.3               # via amqp
 whitenoise==3.2.2
