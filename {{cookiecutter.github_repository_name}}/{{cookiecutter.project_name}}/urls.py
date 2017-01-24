@@ -33,8 +33,8 @@ schema_view = get_swagger_view(title='{{cookiecutter.project_name}} APIs')
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^swagger/$', schema_view),
 {% if cookiecutter.use_django_rest_framework_for_apis == 'y' %}
+    url(r'^swagger/$', schema_view),
     url(r'^api/v1/', include(authentication_urls)),
     url(r'^api/v1/', include(router.urls)),
 {% endif %}
