@@ -78,8 +78,8 @@ INSTALLED_APPS = [
     {% if cookiecutter.use_django_rest_framework_for_apis == 'y' %}
     'rest_framework',
     'rest_framework_swagger',
-    {% endif %}
     '{{cookiecutter.project_name}}.authentication',
+    {% endif %}
 ]
 
 MIDDLEWARE_CLASSES = [
