@@ -1,4 +1,4 @@
-from common import *
+from .common import *
 # Enter your test settings here.
 
 DEBUG = False
