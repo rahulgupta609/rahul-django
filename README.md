@@ -32,9 +32,9 @@ cookiecutter https://github.com/hashedin/django-project-template -f
 
 Cookiecutter will create a new directory for your app, `cd` into that directory.
 
-Create a virtualenv:
+Create a virtualenv with Python 3:
 ```bash
-virtualenv .venv
+virtualenv -p python3 .venv
 source .venv/bin/activate
 ```
 
@@ -48,7 +48,8 @@ Install requirements.txt
 pip3 install -r requirements/local.txt
 ```
 
-Commit the source code to git
+Commit the source code to git:
+
 ```bash
 git init .
 git add -A 
@@ -56,7 +57,6 @@ git commit -m "Initial Commit using django-project-template"
 ```
 
 At this point, your Django project is ready.
-
 
 ## Re-running Cookie Cutter
 Let's say you started your project, and now there are additional updates to django-project-template. Or, you had disabled celery, but now want to enable support. How do you incorporate those changes to your existing project, where you have already written some code?

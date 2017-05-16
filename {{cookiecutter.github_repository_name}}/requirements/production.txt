@@ -1,5 +1,2 @@
 gunicorn==19.7.1
-{% if cookiecutter.use_newrelic == 'y' %}
-newrelic==2.86.0.65
-{% endif %}
 Logentries==0.17
