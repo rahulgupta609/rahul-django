@@ -1,7 +1,5 @@
 # Add test and quality tools over here
 -r base.txt
 
-coverage==4.3.3
-django-coverage-plugin==1.4
-
-django-silk==0.7.2
+coverage==4.4.1
+django-coverage-plugin==1.4.2

@@ -1,11 +1,10 @@
-Production ready starter template for Django Projects running on AWS Elastic Beanstalk
+Production ready starter template for Django Projects running on AWS Elastic Beanstalk or Heroku
 
 ## Features
-* Django 1.10.x
+* Latest Django 1.11.1
 * Whitenoise for static files
 * Configuration via environment variables using dj_database_url and dj_email_url
 * Sane logging defaults
-* Using pip-tools to pin requirements.in / requirements.txt
 * MySQL or Postgres for database
 * Optional support for Celery
 * Optional support for TravisCI and CircleCI
@@ -13,12 +12,17 @@ Production ready starter template for Django Projects running on AWS Elastic Bea
 * Optional support for NewRelic and LogEntries
 * Optional support for Django Rest Framework
 
-
 ## Quick Start
 
-Install [cookiecutter](https://github.com/audreyr/cookiecutter) globally (not in a virtualenv):
+Install [cookiecutter](https://github.com/audreyr/cookiecutter) 
+
+On Mac
 ```bash
-pip install cookiecutter --user
+brew install cookiecutter
+```
+On Ubuntu
+```bash
+sudo apt-get install cookiecutter
 ```
 
 Run cookiecutter in your `apps` directory:
@@ -26,7 +30,7 @@ Run cookiecutter in your `apps` directory:
 cookiecutter https://github.com/hashedin/django-project-template -f
 ```
 
-Cookiecutter creates a new directory for your app, `cd` into that directory.
+Cookiecutter will create a new directory for your app, `cd` into that directory.
 
 Create a virtualenv:
 ```bash
@@ -36,12 +40,12 @@ source .venv/bin/activate
 
 Upgrade pip
 ```bash
-pip install --upgrade pip
+pip3 install --upgrade pip
 ```
 
 Install requirements.txt
 ```bash
-pip install -r requirements/local.txt
+pip3 install -r requirements/local.txt
 ```
 
 Commit the source code to git

@@ -28,11 +28,14 @@ def is_ec2_linux():
 
 def get_linux_ec2_private_ip():
     """Get the private IP Address of the machine if running on an EC2 linux server"""
-    import urllib2
+    try:
+        from urllib2 import urlopen
+    except:
+        from urllib.request import urlopen
     if not is_ec2_linux():
         return None
     try:
-        response = urllib2.urlopen('http://169.254.169.254/latest/meta-data/local-ipv4')
+        response = urlopen('http://169.254.169.254/latest/meta-data/local-ipv4')
         return response.read()
     except:
         return None
@@ -78,6 +81,7 @@ INSTALLED_APPS = [
     {% if cookiecutter.use_django_rest_framework_for_apis == 'y' %}
     'rest_framework',
     'rest_framework_swagger',
+    'rest_framework.authtoken',
     '{{cookiecutter.project_name}}.authentication',
     {% endif %}
 ]
